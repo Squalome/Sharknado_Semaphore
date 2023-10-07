@@ -3,11 +3,11 @@ import { task, types } from "hardhat/config"
 task("deploy-sharknado", "Deploy a Sharknado contract")
     .addOptionalParam("semaphore", "Semaphore contract address", undefined, types.string)
     .addOptionalParam("logs", "Print the logs", true, types.boolean)
-    .setAction(async ({ logs, semaphore: semaphoreAddress }, { ethers, run }) => {
+    .setAction(async ({ logs, semaphore: semaphoreAddress }, { ethers }) => {
         const SharknadoFactory = await ethers.getContractFactory("Sharknado")
 
         const overrides = {
-            gasPrice: ethers.utils.parseUnits("1", "gwei") // Specify a higher gas price
+            gasPrice: ethers.utils.parseUnits("2", "gwei") // Specify a higher gas price
         }
         const sharknadoContract = await SharknadoFactory.deploy(semaphoreAddress, overrides)
 

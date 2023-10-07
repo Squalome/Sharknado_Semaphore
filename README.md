@@ -18,7 +18,7 @@ Semaphore contract has been deployed to: 0xee5cF4Cc94bb97E2bA0d0a115b69c6075Ce42
 
 `hh deploy-sharknado --semaphore 0xee5cF4Cc94bb97E2bA0d0a115b69c6075Ce42DD1 --network gnosis`
 
-Sharknado contract has been deployed to: 0x63b9F0DFa2a6a3604Fb301b376Dc3a5b133EDd3a
+Sharknado contract has been deployed to: 0x10d7526150f4134d9B6631c8C4A6d812a91dFfA7
 
 ## Gnosis-Chiado
 

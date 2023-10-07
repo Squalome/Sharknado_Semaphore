@@ -11,7 +11,7 @@ task("add-question", "add a question and create semaphore group")
     .addParam("question", "Question to ask", "", types.string)
     .addParam("eligibleholdertokencontract", "which NFT to check", "", types.string)
     .addParam("answerthreshold", "number of participants until lottery triggered", "", types.string)
-    .addParam("bountyamount", "how much bounty in wei to send along", "", types.int)
+    .addParam("bountyamount", "how much bounty in wei to send along", "", types.string)
     .setAction(
         async (
             { contractaddress, groupid, question, answerthreshold, eligibleholdertokencontract, bountyamount },
@@ -31,6 +31,8 @@ task("add-question", "add a question and create semaphore group")
             const provider =
                 network.name === "localhost"
                     ? new providers.JsonRpcProvider("http://127.0.0.1:8545")
+                    : network.name.startsWith("gnosis")
+                    ? new providers.JsonRpcProvider("https://gnosis.drpc.org")
                     : new providers.InfuraProvider(network.name, infuraApiKey)
 
             const signer = new Wallet(ethereumPrivateKey, provider)
@@ -41,7 +43,8 @@ task("add-question", "add a question and create semaphore group")
                 question,
                 eligibleholdertokencontract,
                 answerthreshold,
-                bountyamount
+                bountyamount,
+                { value: bountyamount }
             )
 
             await transaction.wait()

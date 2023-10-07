@@ -165,6 +165,10 @@ contract Sharknado is Ownable {
         }
     }
 
+    function getQuestionList() external view returns (Question[] memory) {
+        return questionList;
+    }
+
     function startLotteryPayout(uint256 _questionId) internal {
         Question memory questionStruct = questionList[_questionId];
         uint256 prize = questionStruct.bountyAmount;
