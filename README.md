@@ -20,6 +20,44 @@ Semaphore contract has been deployed to: 0xee5cF4Cc94bb97E2bA0d0a115b69c6075Ce42
 
 Sharknado contract has been deployed to: 0x10d7526150f4134d9B6631c8C4A6d812a91dFfA7
 
+### NFT Contract
+
+0xf649cb1884dcf8bac5ccfa669083c489288685bb
+
+### Adding Questions
+
+#### 1
+
+question="Do you consider your Pixel Hipster face your true profile pic? Yes / No"
+sharknadoAddress=0x10d7526150f4134d9B6631c8C4A6d812a91dFfA7
+eligibleholdertokencontract=0xf649cb1884dcf8bac5ccfa669083c489288685bb
+
+`hh add-question --contractaddress $sharknadoAddress --groupid 2 --question $question --eligibleholdertokencontract $eligibleholdertokencontract --answerthreshold 3 --bountyamount 1 --network gnosis`
+successful transaction 0xd4db33a4dc632d54a1ef39ad58a6bef6479ae309a2f89bff42a83322332829e5
+
+#### 2
+
+question="Would you drop your banana for a Boat Monkey-only yacht party? Yes / No"
+
+`hh add-question --contractaddress $sharknadoAddress --groupid 3 --question $question --eligibleholdertokencontract $eligibleholdertokencontract --answerthreshold 3 --bountyamount 1 --network gnosis`
+successful transaction 0xbbb31a92819fef42deeff9e6dcb125e4cecf1b9a148019aacb3920eb3d14f172
+
+#### 3
+
+question="Do you think your pixelated doodles will hang in the 'Museum of the Internet' one day? Yes / No"
+
+`hh add-question --contractaddress $sharknadoAddress --groupid 4 --question $question --eligibleholdertokencontract $eligibleholdertokencontract --answerthreshold 3 --bountyamount 1 --network gnosis`
+
+successful transaction 0xa0f5190fa9eba6a3618696276cc00536ed92935a3bb68e101b1551918a44311c
+
+#### 4
+
+question="Is your virtual lawn better maintained than your real one? Yes / No"
+
+`hh add-question --contractaddress $sharknadoAddress --groupid 5 --question $question --eligibleholdertokencontract $eligibleholdertokencontract --answerthreshold 3 --bountyamount 1 --network gnosis`
+
+successful transaction 0x89d6aa8d11f8f563e22781ce44f3567e9b873ba870a4257d58eb5c4dd2d16d87
+
 ## Gnosis-Chiado
 
 ### Semaphore on Gnosis-Chiado
