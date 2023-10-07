@@ -21,7 +21,6 @@ contract Feedback {
 
     function sendFeedback(
         uint256 feedback,
-        address freshWalletForLotteryPayout,
         uint256 merkleTreeRoot,
         uint256 nullifierHash,
         uint256[8] calldata proof
