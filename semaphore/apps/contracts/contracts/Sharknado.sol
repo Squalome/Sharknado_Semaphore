@@ -23,7 +23,7 @@ contract Sharknado is Ownable {
         bool isPayedOut;
     }
 
-    mapping(uint256 => mapping(uint256 => bool)) questionNullifierHashes;
+    mapping(uint256 => mapping(uint256 => bool)) questionIdentityCommitments;
 
     Question[] questionList;
 
@@ -42,6 +42,7 @@ contract Sharknado is Ownable {
         uint256 totalVotes
     );
     error OnlyEligibleHoldersCanJoin();
+    error CanOnlyJoinGroupOnce();
     error InvalidBountyAmount();
     error NullifierAlreadyExists();
 
@@ -94,7 +95,13 @@ contract Sharknado is Ownable {
             revert OnlyEligibleHoldersCanJoin();
         }
 
+        if (questionIdentityCommitments[_questionId][_identityCommitment]) {
+            revert CanOnlyJoinGroupOnce();
+        }
+
         // FIXME, validation: how to make sure, same user is not joining several times?
+        // Is this needed?
+        questionIdentityCommitments[_questionId][_identityCommitment] = true;
 
         semaphore.addMember(_groupId, _identityCommitment);
     }
@@ -102,56 +109,48 @@ contract Sharknado is Ownable {
     function sendAnswerToQuestion(
         uint256 _questionId,
         uint256 _groupId,
-        uint256 _isUpvote,
+        bool _isUpvote,
         address _lotteryPayoutAddress,
         uint256 _merkleTreeRoot,
         uint256 _nullifierHash,
         uint256[8] calldata _proof
     ) external {
-        // FIXME, functionality:
-        // how does verifyProof work with additional parameters? Does it need to be proofed as well?
-        // do we have to deploy a new semaphore version in order to account for `bool _isUpvote`?
+        /// @notice functionality:
+        /// how does verifyProof work with additional parameters? Does it need to be proofed as well?
+        /// Answer: the parameters have be meshed together, as long as this is within uin256 limits its fine
+        /// and we don't need to deploy a new semaphore contract
+        // TODO: check how longer params could be verified with semaphore
 
-        // FIXME, validation: how to make sure, user is not sending answer twice?
-        // using nullifier?
+        /// @notice validation: how to make sure, user is not sending answer twice?
+        /// Answer: this is taken care of by semaphore verification, same identity can't submit more than one answer
+        /// this is signal independant
+        /// no need to track nullifiers ourselves
 
-        if (!questionNullifierHashes[_questionId][_nullifierHash]) {
-            revert NullifierAlreadyExists();
-        }
+        uint256 packedData = packData(_lotteryPayoutAddress, _isUpvote);
 
         // TODO, understand: using groupId twice?
         semaphore.verifyProof(
             _groupId,
             _merkleTreeRoot,
-            _isUpvote,
+            packedData,
             _nullifierHash,
             _groupId,
             _proof
         );
 
         Question memory questionStruct = questionList[_questionId];
-        if (_isUpvote == 1) {
-            questionStruct.upVote += 1;
-        } else {
-            questionStruct.downVote += 1;
-        }
+        questionStruct.upVote += _isUpvote ? 1 : 0;
+        questionStruct.downVote += _isUpvote ? 0 : 1;
 
         questionList[_questionId] = questionStruct;
         questionList[_questionId].lotteryPayoutAddresses.push(
             _lotteryPayoutAddress
         );
 
-        // FIXME: look at the params as soon as semaphore proofFunctionality is clear
-        bool isUpvote;
-        if (_isUpvote == 1) {
-            isUpvote = true;
-        } else {
-            isUpvote = false;
-        }
         emit QuestionAnswered(
             _questionId,
             _groupId,
-            isUpvote,
+            _isUpvote,
             questionStruct.upVote + questionStruct.downVote
         );
 
@@ -176,6 +175,30 @@ contract Sharknado is Ownable {
 
         questionList[_questionId].isPayedOut = true;
         payable(winner).transfer(prize);
+    }
+
+    /// @dev In the packData function, we perform a bitwise OR operation (|) between the uint256 representation of
+    /// the address (uint256(_myAddress)) and the left-shifted boolean value ((uint256(_myBool ? 1 : 0) << 160)).
+    /// This packs the address at the lower bits of the uint256 variable and the boolean at the 161st bit.
+    function packData(
+        address _address,
+        bool _isUpvote
+    ) public pure returns (uint256) {
+        uint256 packedData = uint256(uint160(_address)) |
+            (uint256(_isUpvote ? 1 : 0) << 160);
+        return packedData;
+    }
+
+    /// @dev In the unpackData function, we use the bitwise AND operation (&) and the bitwise right-shift
+    /// operation (>>) to extract the address and boolean from the packed uint256 variable.
+    /// We use a mask ((1 << 160) - 1) to obtain the lower 160 bits for the address,
+    /// and then shift right by 160 bits to get the boolean value.
+    function unpackData(
+        uint256 _packedData
+    ) public pure returns (address, bool) {
+        address _address = address(uint160(_packedData) & ((1 << 160) - 1));
+        bool _isUpvote = (_packedData >> 160) & 1 == 1;
+        return (_address, _isUpvote);
     }
 
     // FIXME, implementation: Have better implementation, using azuro
