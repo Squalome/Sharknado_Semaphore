@@ -21,8 +21,9 @@ contract Sharknado is Ownable {
         uint32 downVote;
         address[] lotteryPayoutAddresses;
         bool isPayedOut;
-        // mapping(uint256 => bool) nullifierHashAnswers;
     }
+
+    mapping(uint256 => mapping(uint256 => bool)) questionNullifierHashes;
 
     Question[] questionList;
 
@@ -34,8 +35,15 @@ contract Sharknado is Ownable {
         uint32 answerThreshold,
         uint256 bountyAmount
     );
+    event QuestionAnswered(
+        uint256 questionId,
+        uint256 groupId,
+        bool isUpvote,
+        uint256 totalVotes
+    );
     error OnlyEligibleHoldersCanJoin();
     error InvalidBountyAmount();
+    error NullifierAlreadyExists();
 
     constructor(address semaphoreAddress) {
         semaphore = ISemaphore(semaphoreAddress);
@@ -101,11 +109,15 @@ contract Sharknado is Ownable {
         uint256[8] calldata _proof
     ) external {
         // FIXME, functionality:
-        // how does verifyProof work with additional parameters?
+        // how does verifyProof work with additional parameters? Does it need to be proofed as well?
         // do we have to deploy a new semaphore version in order to account for `bool _isUpvote`?
 
         // FIXME, validation: how to make sure, user is not sending answer twice?
         // using nullifier?
+
+        if (!questionNullifierHashes[_questionId][_nullifierHash]) {
+            revert NullifierAlreadyExists();
+        }
 
         // TODO, understand: using groupId twice?
         semaphore.verifyProof(
@@ -119,14 +131,28 @@ contract Sharknado is Ownable {
 
         Question memory questionStruct = questionList[_questionId];
         if (_isUpvote == 1) {
-            questionStruct.upVote++;
+            questionStruct.upVote += 1;
         } else {
-            questionStruct.downVote++;
+            questionStruct.downVote += 1;
         }
 
         questionList[_questionId] = questionStruct;
         questionList[_questionId].lotteryPayoutAddresses.push(
             _lotteryPayoutAddress
+        );
+
+        // FIXME: look at the params as soon as semaphore proofFunctionality is clear
+        bool isUpvote;
+        if (_isUpvote == 1) {
+            isUpvote = true;
+        } else {
+            isUpvote = false;
+        }
+        emit QuestionAnswered(
+            _questionId,
+            _groupId,
+            isUpvote,
+            questionStruct.upVote + questionStruct.downVote
         );
 
         if (
