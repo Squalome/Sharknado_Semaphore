@@ -54,6 +54,16 @@ function getNetworks(): NetworksUserConfig {
             url: "https://arb1.arbitrum.io/rpc",
             chainId: 42161,
             accounts
+        },
+        "gnosis-chiado": {
+            url: "https://gnosis-chiado.publicnode.com",
+            chainId: 10200,
+            accounts
+        },
+        gnosis: {
+            url: "https://rpc.gnosischain.com",
+            chainId: 100,
+            accounts
         }
     }
 }
