@@ -35,6 +35,7 @@ contract Sharknado is Ownable {
         uint32 answerThreshold,
         uint256 bountyAmount
     );
+    event GroupJoined(uint256 groupId);
     event QuestionAnswered(
         uint256 questionId,
         uint256 groupId,
@@ -104,6 +105,7 @@ contract Sharknado is Ownable {
         questionIdentityCommitments[_questionId][_identityCommitment] = true;
 
         semaphore.addMember(_groupId, _identityCommitment);
+        emit GroupJoined(_groupId);
     }
 
     function sendAnswerToQuestion(
