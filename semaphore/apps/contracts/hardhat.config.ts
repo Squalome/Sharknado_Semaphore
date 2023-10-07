@@ -11,6 +11,7 @@ import { resolve } from "path"
 import "solidity-coverage"
 import { config } from "./package.json"
 import "./tasks/deploy"
+import "./tasks/get-groups"
 
 dotenvConfig({ path: resolve(__dirname, "../../.env") })
 
