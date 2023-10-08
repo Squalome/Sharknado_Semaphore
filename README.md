@@ -22,13 +22,23 @@ Semaphore contract has been deployed to: 0xee5cF4Cc94bb97E2bA0d0a115b69c6075Ce42
 
 `hh deploy-sharknado --semaphore 0xee5cF4Cc94bb97E2bA0d0a115b69c6075Ce42DD1 --network gnosis`
 
-Sharknado contract has been deployed to: 0x3B2B510EE05676dA38739f5a7c0e870bE34eED0D
+Sharknado contract has been deployed to: 0xeFB23e1a4573eBA1385D2730A4ddB9aeeb6ea20F
 
-### NFT Contract
+### Eligible NFT Contract
 
-0xf649cb1884dcf8bac5ccfa669083c489288685bb
+[0xf649cb1884dcf8bac5ccfa669083c489288685bb](https://gnosisscan.io/address/0xf649cb1884dcf8bac5ccfa669083c489288685bb)
 
 ### Adding Questions
+
+"As an Italian, do you think pineapple is an acceptable pizza topping? Yes/No"
+
+"Do you consider your Pixel Hipster face your true profile pic? Yes / No"
+
+"Would you drop your banana for a Boat Monkey-only yacht party? Yes / No"
+
+"Do you think your pixelated doodles will hang in the 'Museum of the Internet' one day? Yes / No"
+
+"Is your virtual lawn better maintained than your real one? Yes / No"
 
 #### 1
 
@@ -91,6 +101,36 @@ successful transaction 0x07798460596b24eb05f7c4e0e0f4c190b7a53659e78b2adbe8cdf6e
 `hh add-question --contractaddress $sharknadoAddress --groupid 10 --question $question --eligibleholdertokencontract $eligibleholdertokencontract --answerthreshold 3 --bountyamount 1 --network gnosis`
 
 successful transaction 0x6fc55f424c9db3444f9b99e232ce148e73e5e04529a01bbe7a3672470d898131
+
+#### 10
+
+`h add-question --contractaddress $sharknadoAddress --groupid 11 --question $question --eligibleholdertokencontract $eligibleholdertokencontract --answerthreshold 3 --bountyamount 1 --network gnosis`
+
+successful transaction 0x90685123038f09b05f6a6cb48e994d6bf8c68fd102d8c5f4b811ed3b6c3cfc96
+
+#### 11
+
+`hh add-question --contractaddress $sharknadoAddress --groupid 12 --question $question --eligibleholdertokencontract $eligibleholdertokencontract --answerthreshold 3 --bountyamount 1 --network gnosis`
+
+successful transaction 0x4d185343afe809c33e0602183bc81e05fc07c546956a89481590eb9f10e6305e
+
+#### 12
+
+`hh add-question --contractaddress $sharknadoAddress --groupid 13 --question $question --eligibleholdertokencontract $eligibleholdertokencontract --answerthreshold 3 --bountyamount 1 --network gnosis`
+
+successful transaction 0x258a7293106a82655adab306e6fe9df376e42175c587f2e01418c1f05b5f654d
+
+#### 13
+
+`hh add-question --contractaddress $sharknadoAddress --groupid 14 --question $question --eligibleholdertokencontract $eligibleholdertokencontract --answerthreshold 3 --bountyamount 1 --network gnosis`
+
+successful transaction 0x66f662cd18ba47597f92294c182e87489cf5e5ac2b2720dae0e7b3fd73eea1a8
+
+#### 14
+
+`hh add-question --contractaddress $sharknadoAddress --groupid 15 --question $question --eligibleholdertokencontract $eligibleholdertokencontract --answerthreshold 3 --bountyamount 1 --network gnosis`
+
+successful transaction 0x4f33235447f1ec07f8c81d6c1e9bd68b82f51d3ed167b2acb0b8ed58083eaf94
 
 ## Gnosis-Chiado
 

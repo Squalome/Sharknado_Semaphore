@@ -8,7 +8,7 @@ import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 contract Sharknado is Ownable {
     ISemaphore public semaphore;
 
-    uint256 questionId = 1;
+    uint256 questionId = 0;
 
     struct Question {
         uint256 questionId;
@@ -43,7 +43,17 @@ contract Sharknado is Ownable {
     error OnlyEligibleHoldersCanJoin();
     error InvalidBountyAmount();
     error NullifierAlreadyExists();
-    event LotteryPayout(address lotteryPayoutAddress);
+    event LotteryPayout(
+        address lotteryPayoutAddress,
+        uint256 questionId,
+        uint256 groupId,
+        string question,
+        address eligibleHolderTokenContract,
+        uint32 answerThreshold,
+        uint256 bountyAmount,
+        uint32 upVote,
+        uint32 downVote
+    );
 
     constructor(address semaphoreAddress) {
         semaphore = ISemaphore(semaphoreAddress);
@@ -172,7 +182,17 @@ contract Sharknado is Ownable {
         questionList[_questionId].isPayedOut = true;
         payable(winner).transfer(prize);
 
-        emit LotteryPayout(winner);
+        emit LotteryPayout(
+            winner,
+            questionStruct.questionId,
+            questionStruct.groupId,
+            questionStruct.question,
+            questionStruct.eligibleHolderTokenContract,
+            questionStruct.answerThreshold,
+            questionStruct.bountyAmount,
+            questionStruct.upVote,
+            questionStruct.downVote
+        );
     }
 
     /// @dev In the packData function, we perform a bitwise OR operation (|) between the uint256 representation of
