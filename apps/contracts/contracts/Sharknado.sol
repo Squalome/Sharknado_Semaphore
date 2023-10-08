@@ -43,6 +43,7 @@ contract Sharknado is Ownable {
     error OnlyEligibleHoldersCanJoin();
     error InvalidBountyAmount();
     error NullifierAlreadyExists();
+    event LotteryPayout(address lotteryPayoutAddress);
 
     constructor(address semaphoreAddress) {
         semaphore = ISemaphore(semaphoreAddress);
@@ -170,6 +171,8 @@ contract Sharknado is Ownable {
 
         questionList[_questionId].isPayedOut = true;
         payable(winner).transfer(prize);
+
+        emit LotteryPayout(winner);
     }
 
     /// @dev In the packData function, we perform a bitwise OR operation (|) between the uint256 representation of
