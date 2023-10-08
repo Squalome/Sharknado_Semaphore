@@ -62,6 +62,36 @@ question="Is your virtual lawn better maintained than your real one? Yes / No"
 
 successful transaction 0x89d6aa8d11f8f563e22781ce44f3567e9b873ba870a4257d58eb5c4dd2d16d87
 
+#### 5
+
+`hh add-question --contractaddress $sharknadoAddress --groupid 6 --question $question --eligibleholdertokencontract $eligibleholdertokencontract --answerthreshold 3 --bountyamount 1 --network gnosis`
+
+successful transaction 0x56683b39b60e3a41337fb2fdb9baf095dbefbdd7291756dab896696d261a42fd
+
+#### 6
+
+`hh add-question --contractaddress $sharknadoAddress --groupid 7 --question $question --eligibleholdertokencontract $eligibleholdertokencontract --answerthreshold 3 --bountyamount 1 --network gnosis`
+
+successful transaction 0x793d1dc2bf5f348977a176fb995d0654b15c33122596907aafca06b04a0df600
+
+#### 7
+
+`hh add-question --contractaddress $sharknadoAddress --groupid 8 --question $question --eligibleholdertokencontract $eligibleholdertokencontract --answerthreshold 3 --bountyamount 1 --network gnosis`
+
+successful transaction 0x1803c7e4acaf57f06d2e7f3df9a73757685a643b7d5ed0dcd6dae9b653980632
+
+#### 8
+
+`hh add-question --contractaddress $sharknadoAddress --groupid 9 --question $question --eligibleholdertokencontract $eligibleholdertokencontract --answerthreshold 3 --bountyamount 1 --network gnosis`
+
+successful transaction 0x07798460596b24eb05f7c4e0e0f4c190b7a53659e78b2adbe8cdf6efc238eeed
+
+#### 9
+
+`hh add-question --contractaddress $sharknadoAddress --groupid 10 --question $question --eligibleholdertokencontract $eligibleholdertokencontract --answerthreshold 3 --bountyamount 1 --network gnosis`
+
+successful transaction 0x6fc55f424c9db3444f9b99e232ce148e73e5e04529a01bbe7a3672470d898131
+
 ## Gnosis-Chiado
 
 ### Semaphore on Gnosis-Chiado
