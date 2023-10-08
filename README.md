@@ -1,5 +1,19 @@
 # Semaphore Hardhat + Next.js + SemaphoreEthers template
 
+This is an implementation of the [EthRome Hackathon](https://ethrome.org/).
+
+You can find [the submission here](https://taikai.network/ethrome/hackathons/ethrome-23/projects/clnfyh1ya00gmye01j19ob1rz/idea).
+
+[Sharknado deployed website](https://sharknado.vercel.app)
+
+[Sharknado deployed contract on Gnosis Mainnet](https://gnosisscan.io/address/0xefb23e1a4573eba1385d2730a4ddb9aeeb6ea20f)
+
+[Related Repo for the frontend and subgraphs](https://github.com/Squalome/sharknado)
+
+![sharknadoscreen quests](./docs/sharknado_screen.jpg)
+
+![sharknadoscreen winners](./docs/sharknado_screen_ii.jpg)
+
 Working from [contracts folder](./apps/contracts/).
 
 # Sharknado_ethRome
