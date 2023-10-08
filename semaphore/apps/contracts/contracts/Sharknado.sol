@@ -23,8 +23,6 @@ contract Sharknado is Ownable {
         bool isPayedOut;
     }
 
-    mapping(uint256 => mapping(uint256 => bool)) questionIdentityCommitments;
-
     Question[] questionList;
 
     event QuestionAdded(
@@ -43,7 +41,6 @@ contract Sharknado is Ownable {
         uint256 totalVotes
     );
     error OnlyEligibleHoldersCanJoin();
-    error CanOnlyJoinGroupOnce();
     error InvalidBountyAmount();
     error NullifierAlreadyExists();
 
@@ -95,14 +92,6 @@ contract Sharknado is Ownable {
         if (eligibleHolderTokenContract.balanceOf(msg.sender) == 0) {
             revert OnlyEligibleHoldersCanJoin();
         }
-
-        if (questionIdentityCommitments[_questionId][_identityCommitment]) {
-            revert CanOnlyJoinGroupOnce();
-        }
-
-        // FIXME, validation: how to make sure, same user is not joining several times?
-        // Is this needed?
-        questionIdentityCommitments[_questionId][_identityCommitment] = true;
 
         semaphore.addMember(_groupId, _identityCommitment);
         emit GroupJoined(_groupId);
