@@ -22,7 +22,7 @@ Semaphore contract has been deployed to: 0xee5cF4Cc94bb97E2bA0d0a115b69c6075Ce42
 
 `hh deploy-sharknado --semaphore 0xee5cF4Cc94bb97E2bA0d0a115b69c6075Ce42DD1 --network gnosis`
 
-Sharknado contract has been deployed to: 0x10d7526150f4134d9B6631c8C4A6d812a91dFfA7
+Sharknado contract has been deployed to: 0x757D0C4f4731b7495d0B4d63eb67a1489f2cA3b4
 
 ### NFT Contract
 
